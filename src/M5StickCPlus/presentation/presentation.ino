@@ -77,7 +77,7 @@ void loop() {
             showxyz(ax, ay, az);
             
             showacc(v);
-            if (( v > 1.3 ) && easy_mode) {
+            if (( v > 1.3 ) || easy_mode) {
               bleKeyboard.press(KEY_DOWN_ARROW);
               bleKeyboard.release(KEY_DOWN_ARROW);
             }
@@ -86,8 +86,8 @@ void loop() {
         } else if (M5.BtnB.wasPressed()) {
             bleKeyboard.press(KEY_UP_ARROW);
             bleKeyboard.release(KEY_UP_ARROW);
-            if (max_v == v) {
-              //easy_mode = !easy_mode;
+            if ( v > 1.3 ) {
+              easy_mode = !easy_mode;
             }
             max_v = 0.0;
         }
