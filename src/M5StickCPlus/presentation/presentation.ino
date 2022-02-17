@@ -3,7 +3,9 @@
 
 BleKeyboard bleKeyboard("M5 Presenter");
 bool blestate = false;
+bool easy_mode = false;
 
+float v = 1.0;
 float max_v = 0.0;
 
 void showxyz(float ax, float ay, float az)
@@ -14,9 +16,7 @@ void showxyz(float ax, float ay, float az)
 }
 
 void showacc(float v) {
-    if ( v > max_v ) {
-      max_v = v;
-    }
+
     M5.Lcd.setCursor(0, 100);
     M5.Lcd.fillRect(0, 100, 320, 20, BLACK);
     M5.Lcd.printf("%4d %4d", (int)(v*1000),(int)(max_v*1000));
@@ -25,7 +25,7 @@ void showacc(float v) {
 void showstate(char *txt) {
     M5.Lcd.setCursor(0, 120);
     M5.Lcd.fillRect(0, 120, 320, 20, BLACK);
-    M5.Lcd.printf(txt);
+    M5.Lcd.printf("%c%s", (easy_mode?'*':' '), txt);
 }
  
 void setup() {
@@ -44,6 +44,7 @@ void setup() {
     M5.IMU.Init();
     M5.IMU.SetAccelFsr(M5.IMU.AFS_4G);
 
+    easy_mode = true;
     showstate("Disconnected");
 }
 
@@ -69,16 +70,26 @@ void loop() {
         */
 
         if (M5.BtnA.wasPressed()) {
-            float v = (float)sqrt(ax*ax + ay*ay + az*az);
+            v = (float)sqrt(ax*ax + ay*ay + az*az);
+            if ( v > max_v ) {
+              max_v = v;
+            }
             showxyz(ax, ay, az);
+            
             showacc(v);
-            if ( v > 1.4 ) {
+            if (( v > 1.3 ) && easy_mode) {
               bleKeyboard.press(KEY_DOWN_ARROW);
               bleKeyboard.release(KEY_DOWN_ARROW);
             }
+
+     
         } else if (M5.BtnB.wasPressed()) {
             bleKeyboard.press(KEY_UP_ARROW);
-            bleKeyboard.release(KEY_UP_ARROW); 
+            bleKeyboard.release(KEY_UP_ARROW);
+            if (max_v == v) {
+              //easy_mode = !easy_mode;
+            }
+            max_v = 0.0;
         }
     } else {
         if (blestate) {
