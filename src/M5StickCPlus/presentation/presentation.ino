@@ -12,7 +12,7 @@ void showxyz(float ax, float ay, float az)
 {
     M5.Lcd.setCursor(0, 80);
     M5.Lcd.fillRect(0, 80, 320, 20, BLACK);
-    M5.Lcd.printf("%d %d %d", (int)(ax*1000), (int)(ay*1000), (int)(az*1000));
+    M5.Lcd.printf("%c%d %d %d", (easy_mode?'*':' '), (int)(ax*1000), (int)(ay*1000), (int)(az*1000));
 }
 
 void showacc(float v) {
@@ -25,7 +25,7 @@ void showacc(float v) {
 void showstate(char *txt) {
     M5.Lcd.setCursor(0, 120);
     M5.Lcd.fillRect(0, 120, 320, 20, BLACK);
-    M5.Lcd.printf("%c%s", (easy_mode?'*':' '), txt);
+    M5.Lcd.printf(txt);
 }
  
 void setup() {
@@ -87,7 +87,7 @@ void loop() {
             bleKeyboard.press(KEY_UP_ARROW);
             bleKeyboard.release(KEY_UP_ARROW);
             if ( v > 1.3 ) {
-              easy_mode = !easy_mode;
+                easy_mode = !easy_mode;
             }
             max_v = 0.0;
         }
