@@ -1,7 +1,7 @@
 #define BLYNK_PRINT Serial
 
 #include <WiFi.h>
-#include "blink-test.h"
+#include "blynk-test.h"
 
 #include <WiFiClient.h>
 #include <BlynkSimpleEsp32.h>

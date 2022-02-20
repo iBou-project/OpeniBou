@@ -1,0 +1,10 @@
+#ifndef __MY_BLYNK_TEST_H__
+#define __MY_BLYNK_TEST_H__
+
+#define BLYNK_TEMPLATE_ID ""
+#define BLYNK_DEVICE_NAME ""
+#define BLYNK_AUTH_TOKEN ""
+#define WIFI_SSID ""
+#define WIFI_PASS "" 
+
+#endif /* __MY_BLYNK_TEST_H__ */
