@@ -17,10 +17,15 @@ void setup()
   M5.begin();
   Serial.begin(115200);
 
+  Serial.print("M5 begin OK");
+  M5.Axp.ScreenBreath(7);
+  M5.Lcd.setRotation(0);
+  M5.Lcd.pushImage(0, 0, IMG_WIDTH, IMG_HEIGHT, IMG_DATA[0]);
+  
   Blynk.begin(auth, ssid, pass);
+  Serial.print("Blynk begin OK");
 
   M5.Axp.ScreenBreath(10);
-  M5.Lcd.setRotation(0);
   /*
   M5.Lcd.fillScreen(WHITE);
   M5.Lcd.setCursor(5, 10);
