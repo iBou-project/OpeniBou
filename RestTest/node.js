@@ -1,10 +1,12 @@
+var data = require('./key.js')
+
 var Client = require('node-rest-client').Client;
 
 var client = new Client();
 
-var latitude = 35.6;
-var longitude = 140.1;
-var key = "";
+var latitude = data.latitude;
+var longitude = data.longitude;
+var key = data.key;
 var r = 2.0;
 var output_format = "json";
 var lang = "ja-Jp"
@@ -43,7 +45,10 @@ client.registerMethod("jsonMethod", url, "GET");
 client.methods.jsonMethod(function (data, response) {
 	// parsed response body as js object
     //console.log(data['resourceSets'][0]['resources'][0]['businessesAtLocation']);
-    console.log(get_item(data, ['resourceSets', 0, 'resources', 0, 'businessesAtLocation']));
+    //console.log(get_item(data, ['resourceSets', 0, 'resources', 0, 'businessesAtLocation']));
+    //console.log(get_item(data, ['resourceSets', 0, 'resources', 0, 'businessesAtLocation']));
 	// raw response
 	//console.log(response);
+	
+    console.log(get_item(data, ['resourceSets', 0, 'resources', 0, 'businessesAtLocation']));
 });
